@@ -1,0 +1,19 @@
+# Source paper / drafts
+CoRL2026_FTP1.zip
+*.zip
+Untitled
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*~
+
+# Local previews
+.cache/
+node_modules/
+
+# Local backup of original (uncompressed) videos
+assets/.orig/

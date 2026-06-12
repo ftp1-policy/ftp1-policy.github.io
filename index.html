@@ -1,1 +1,588 @@
-hi
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FTP-1: A Generalist Foundation Tactile Policy</title>
+  <meta name="description" content="FTP-1 is the first generalist foundation tactile policy pretrained for diverse tactile sensors and embodiments, transferring contact-rich manipulation skills across hardware." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ============== TOP NAV ============== -->
+  <nav class="topnav" id="topnav">
+    <div class="nav-inner">
+      <a href="#" class="brand" aria-label="FTP-1 home">FTP-1</a>
+      <ul class="nav-links" data-shared-links-target="nav"></ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="article">
+
+    <!-- ============== HERO ============== -->
+    <header class="hero">
+      <video class="hero-cover" autoplay muted loop playsinline aria-hidden="true">
+        <source src="assets/sharpa-balloon.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-overlay"></div>
+      <div class="hero-inner">
+        <p class="kicker">Blog</p>
+        <h1>FTP-1: A Generalist Foundation Tactile Policy</h1>
+        <p class="subtitle">Across Tactile Sensors for Contact-Rich Manipulation</p>
+
+        <p class="author-list">
+          <span class="author">Chengbo Yuan<sup>*&Dagger;123</sup></span>
+          <span class="author">Zicheng Zhang<sup>*37</sup></span>
+          <span class="author">Mingjie Zhou<sup>*37</sup></span>
+          <span class="author">Wendi Chen<sup>48</sup></span>
+          <span class="author">Yi Wang<sup>48</sup></span>
+          <span class="author">Zhuoyang Liu<sup>5</sup></span>
+          <span class="author">Dantong Niu<sup>5</sup></span>
+          <span class="author">Shuo Wang<sup>1</sup></span>
+          <span class="author">Hui Zhang<sup>6</sup></span>
+          <span class="author">Wenkang Zhang<sup>1</sup></span>
+          <span class="author">Yingdong Hu<sup>1</sup></span>
+          <span class="author">Yuanqing Gong<sup>3</sup></span>
+          <span class="author">Wanli Xing<sup>3</sup></span>
+          <span class="author">Chuan Wen<sup>4</sup></span>
+          <span class="author">Cewu Lu<sup>48</sup></span>
+          <span class="author">Kaifeng Zhang<sup>3</sup></span>
+          <span class="author">Yang Gao<sup>&dagger;12</sup></span>
+        </p>
+        <p class="affiliations">
+          <span class="affiliation"><sup>1</sup>Tsinghua University</span>
+          <span class="affiliation"><sup>2</sup>Shanghai Qi Zhi Institute</span>
+          <span class="affiliation"><sup>3</sup><a href="https://www.sharpa.com/" target="_blank" rel="noopener noreferrer">Sharpa</a></span>
+          <span class="affiliation"><sup>4</sup>Shanghai Jiao Tong University</span>
+          <span class="affiliation"><sup>5</sup>University of California, Berkeley</span>
+          <span class="affiliation"><sup>6</sup>ETH Zurich</span>
+          <span class="affiliation"><sup>7</sup>Fudan University</span>
+          <span class="affiliation"><sup>8</sup>Shanghai Innovation Institute</span>
+          <span class="affiliation"><sup>*</sup>Equal contribution</span>
+          <span class="affiliation"><sup>&Dagger;</sup>Project leader</span>
+          <span class="affiliation"><sup>&dagger;</sup>Corresponding author</span>
+        </p>
+
+        <div class="cta-row" data-shared-links-source>
+          <a href="paper.pdf" class="cta-btn" target="_blank" rel="noopener noreferrer">Paper</a>
+          <a href="https://arxiv.org/abs/2606.13102" class="cta-btn">arXiv</a>
+          <a href="https://github.com/michaelyuancb/ftp1-policy" class="cta-btn">Code</a>
+          <a href="https://huggingface.co/MJJJJ1064/ftp1_v0426_50kstep" class="cta-btn">Model</a>
+          <a href="https://www.modelscope.cn/datasets/Eureka1064/FTP-1-Dataset" class="cta-btn">Dataset</a>
+          <a href="#bibtex" class="cta-btn">BibTeX</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- ============== ABSTRACT ============== -->
+    <section class="section">
+      <div class="prose">
+        <h2>Highlights</h2>
+
+        <p>
+          We introduce <strong>FTP-1, the first Generalist Foundation Tactile Policy</strong> designed to learn transferable tactile manipulation skills across diverse sensors, embodiments, and real-world tasks.
+          FTP-1 brings the generalist policy paradigm to tactile sensor-based manipulation for the first time, enabling a single pretrained policy to adapt across heterogeneous tactile inputs and robotic platforms.
+        </p>
+        <p>By “generalist, we mean:</p>
+
+        <ul class="bullets">
+          <li>
+            <strong>Sensor-general:</strong> FTP-1 supports a wide range of tactile sensing modalities, including image-based, array-based, and state-based tactile sensors.
+          </li>
+          <li>
+            <strong>Data-scaled:</strong> FTP-1 is pretrained on approximately 3,000 hours of large-scale, heterogeneous tactile manipulation data, spanning human demonstrations, dexterous hands, and gripper-based robots.
+          </li>
+          <li>
+            <strong>Embodiment-transferable:</strong> FTP-1 can be fine-tuned across diverse sensors and robot embodiments, and can even transfer to unseen sensors and platforms with measurable performance gains.
+          </li>
+        </ul>
+
+      </div>
+
+      <figure class="media media-wide">
+        <img src="assets/figures/teaser.png" alt="FTP-1 teaser figure: generalist foundation tactile policy overview" />
+        <figcaption><strong>Teaser.</strong> FTP-1 is the first generalist foundation tactile policy pretrained for diverse sensors and embodiments. Pretrained on a large-scale heterogeneous tactile manipulation dataset, FTP-1 improves downstream performance with +31.6% gain on unseen sensor setups.</figcaption>
+      </figure>
+
+      <div class="prose">
+        <p>
+          FTP-1 has been tested across leading institutions worldwide, including <a class="inline-link" href="https://www.sharpa.com/" target="_blank" rel="noopener noreferrer">Sharpa</a>, UC Berkeley, Tsinghua University, ETH Zurich, SJTU and beyond—demonstrating strong performance across a wide range of robotic platforms and tactile sensing setups.
+          Now, we’re opening the door for the broader community to evaluate FTP-1 on diverse sensors, embodiments, and real-world manipulation challenges.
+        </p>
+      </div>
+
+      <figure class="media media-wide">
+        <img src="assets/figures/deployment.png" alt="FTP-1 evaluation overview" />
+        <figcaption>FTP-1 is deployed and evaluated across leading global institutions, demonstrating its adaptability across diverse robotic platforms.</figcaption>
+      </figure>
+
+    </section>
+
+    <!-- ============== CHALLENGE ============== -->
+    <section class="section">
+      <div class="prose">
+        <h2>The Dark Cloud Over Generalist Policy: Tactile Heterogeneity</h2>
+
+        <p>
+          Recent vision-based foundation policies, such as <a class="inline-link" href="https://www.pi.website/blog/pi05" target="_blank" rel="noopener noreferrer">π<sub>0.5</sub></a> and <a class="inline-link" href="https://research.nvidia.com/labs/gear/gr00t-n15/" target="_blank" rel="noopener noreferrer">GR00T N1.5</a>, have shown that pretraining on large, diverse datasets can produce general-purpose policies that serve as strong initialization points for downstream robotic manipulation.
+          Yet bringing the same paradigm to tactile manipulation remains challenging �?even though tactile feedback is often essential for contact-rich tasks. When training a new tactile manipulation policy today, we quickly run into a fundamental gap: unlike vision-based manipulation, tactile manipulation still lacks a broadly reusable, foundation-level pretrained policy that can be used out of the box and adapted to new sensors, embodiments, and tasks.
+        </p>
+        
+        <p>
+          But a dark cloud hangs over the path toward generalist tactile policy: <strong>tactile heterogeneity</strong>. Across robotic platforms, tactile observations can vary dramatically in modality, spatial resolution, sensor morphology, and contact response. A <a class="inline-link" href="https://www.gelsight.com/gelsightmini/" target="_blank" rel="noopener noreferrer">GelSight-Mini</a> image, a <a class="inline-link" href="https://contactile.com/products/#tactile_sensors" target="_blank" rel="noopener noreferrer">Contactile</a> tactile array, and a six-axis force/torque reading all encode touch, but in fundamentally different formats.
+          As a result, most existing tactile policies are tightly coupled to a single sensor, embodiment, or task setup. This makes it difficult to absorb tactile experience across systems, scale pretraining across heterogeneous data, or transfer learned skills to new tactile hardware.
+        </p>
+        
+        <p>
+          FTP-1 asks a simple but fundamental question: <strong>Can one tactile policy learn from heterogeneous tactile experience and transfer to sensors and embodiments beyond those seen during pretraining?</strong>
+        </p>
+
+        <figure class="media media-wide">
+          <img src="assets/figures/tac_heterogenerity.png" alt="Tactile Heterogeneity Problem" />
+          <figcaption>FTP-1 learns to unify diverse tactile modalities into a single generalist tactile policy.</figcaption>
+        </figure>
+  
+        
+      </div>
+    </section>
+
+    <!-- ============== ARCHITECTURE ============== -->
+    <section class="section">
+      <div class="prose">
+        <h2>FTP-1: Training Genearlist Tactile Foundation Policy</h2>
+
+        <p>
+          FTP-1 is a multi-expert foundation policy with a vision-language expert, an action generation expert, and a shared tactile expert that operates across sensors. Pretrained on large-scale heterogeneous tactile manipulation data, this tactile expert learns transferable touch representations that can be adapted to downstream sensors, embodiments, and tasks.
+        </p>
+        
+        <p>
+          To make diverse tactile inputs compatible with a shared expert, FTP-1 introduces <strong>Morphology-Aware Tactile Token Space (MTTS)</strong>: a unified interface that maps image-based, array-based, and state-based tactile observations into semantically aligned tactile tokens.
+          These tokens are further augmented with functional-area embeddings, encouraging the policy to learn shared tactile semantics across similar regions of the end-effector, even when the underlying sensors differ.
+          More details are provided in <a href="paper.pdf" class="inline-link" target="_blank" rel="noopener noreferrer">our technical report</a>.
+        </p>
+    
+      <figure class="media media-wide">
+        <img src="assets/figures/architecture.png" alt="FTP-1 architecture diagram" />
+        <figcaption>
+          <strong>Architecture.</strong> FTP-1 converts heterogeneous tactile observations into shared tactile tokens, processes them with a tactile expert, and fuses touch with vision, language, and proprioception to generate actions.
+        </figcaption>
+      </figure>
+
+        <p>
+          To pretrain FTP-1, we aggregate a new large-scale heterogeneous tactile manipulation dataset spanning <strong>26 data sources</strong> and <strong>21 distinct tactile sensors</strong> &mdash; 7 image-type, 5 array-type, and 9 state-type.
+          To mitigate dataset imbalance, we apply source-specific sampling ratios so that the final pretraining mixture is approximately <strong>20% human, 30% dexterous-hand, 50% gripper</strong> data. All tactile annotations are organized under the MTTS interface and language instructions are rewritten with GPT-4o for linguistic diversity.
+          By pretraining on a these data, FTP-1 learns transferable tactile manipulation skills.
+        </p>
+
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-cell">
+          <div class="stat-num">~3,000<span class="stat-unit">&nbsp;hrs</span></div>
+          <div class="stat-label">Tactile manipulation data</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num">26</div>
+          <div class="stat-label">Data sources</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num">21</div>
+          <div class="stat-label">Tactile sensors</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Sensor types</div>
+        </div>
+      </div>
+
+      <figure class="media media-wide">
+        <img src="assets/figures/dataset.png" alt="FTP-1-Dataset overview across human, dexterous-hand, and gripper data" />
+        <figcaption><strong>FTP-1-Dataset.</strong> Aggregated from 26 sources covering human and robot manipulation, 21 tactile sensors, image- / array- / state-based modalities &mdash; all organized under the MTTS interface for unified pretraining.</figcaption>
+      </figure>
+
+      <div class="prose">
+        
+      </div>
+    </section>
+
+    <!-- ============== RESULTS: FAMILIAR TACTILE SETUPS ============== -->
+    <section class="section">
+      <div class="prose">
+        <h2>FTP-1 Improves Performance Across Familiar Tactile Setups</h2>
+
+        <p>
+          We first evaluate FTP-1 on tactile sensors and robotic setups represented in the pretraining mixture. These experiments cover both simulation and real-robot tasks, spanning dexterous manipulation, gripper-based contact control, and long-horizon physical interaction.
+        </p>
+
+        <p>
+          Across these settings, FTP-1 achieves the strongest average performance among baselines.
+          It boost performance on tasks where success depends on sustained contact, force regulation, and tactile feedback such as twisting a bottle cap, flipping pages, wiping a dish, and drawing on a deformable balloon.
+        </p>
+      </div>
+
+      <figure class="media media-wide">
+        <img src="assets/figures/hardware_seen.png" alt="Hardware setups for familiar tactile evaluation" />
+        <figcaption>
+          <strong>Evaluation on familiar tactile setups.</strong> FTP-1 is tested across UniVTAC simulation, SharpaNorth long-horizon dexterous tasks, and SharpaDexmate force-control tasks.
+        </figcaption>
+      </figure>
+
+      <div class="prose">
+        <h3>Simulation Benchmark</h3>
+
+        <p>
+          On UniVTAC, FTP-1 achieves the best average success rate across contact-rich manipulation tasks, improving over the strongest baseline by approximately <strong>+17.5%</strong>.
+        </p>
+      </div>
+
+      <div class="table-wrap">
+        <table class="results">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Lift Bottle</th>
+              <th>Pull-out Key</th>
+              <th>Lift Can</th>
+              <th>Put Bottle</th>
+              <th>Insert Hole</th>
+              <th>Insert Tube</th>
+              <th>Avg.</th>
+              <th>Avg. w/o Lift</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>VITaL</td><td>72</td><td class="snd">47</td><td>8</td><td>32</td><td>25</td><td>34</td><td>36.3</td><td>34.5</td></tr>
+            <tr><td>UniVTAC-ACT</td><td>71</td><td>46</td><td>29</td><td>31</td><td>25</td><td>56</td><td>43.0</td><td>39.5</td></tr>
+            <tr><td>&pi;<sub>0.5</sub></td><td class="best">97</td><td>38</td><td class="best">72</td><td>16</td><td>31</td><td>41</td><td class="snd">49.2</td><td>31.5</td></tr>
+            <tr><td>Tactile-VLA</td><td class="best">97</td><td>32</td><td>15</td><td>10</td><td>41</td><td>56</td><td>41.8</td><td>34.8</td></tr>
+            <tr><td>FTP-&pi;<sub>0.5</sub></td><td class="snd">77</td><td>30</td><td>26</td><td class="snd">19</td><td class="snd">47</td><td class="snd">72</td><td>45.2</td><td class="snd">42.0</td></tr>
+            <tr class="ours"><td>FTP-1 (Ours)</td><td class="best">97</td><td class="best">48</td><td class="snd">65</td><td class="best">47</td><td class="best">64</td><td class="best">79</td><td class="best">66.7</td><td class="best">59.5</td></tr>
+          </tbody>
+        </table>
+
+        <div class="dex-grid univtac-grid">
+          <article class="dex-item">
+            <figure class="media">
+              <video class="media-box" autoplay muted loop playsinline controls>
+                <source src="assets/univtac/univtac_lift_bottle.mp4" type="video/mp4" />
+              </video>
+            </figure>
+            <h3>Lift Bottle</h3>
+          </article>
+
+          <article class="dex-item">
+            <figure class="media">
+              <video class="media-box" autoplay muted loop playsinline controls>
+                <source src="assets/univtac/univtac_pull_out_key.mp4" type="video/mp4" />
+              </video>
+            </figure>
+            <h3>Pull-out Key</h3>
+          </article>
+
+          <article class="dex-item">
+            <figure class="media">
+              <video class="media-box" autoplay muted loop playsinline controls>
+                <source src="assets/univtac/univtac_lift_can.mp4" type="video/mp4" />
+              </video>
+            </figure>
+            <h3>Lift Can</h3>
+          </article>
+
+          <article class="dex-item">
+            <figure class="media">
+              <video class="media-box" autoplay muted loop playsinline controls>
+                <source src="assets/univtac/univtac_put_bottle.mp4" type="video/mp4" />
+              </video>
+            </figure>
+            <h3>Put Bottle</h3>
+          </article>
+
+          <article class="dex-item">
+            <figure class="media">
+              <video class="media-box" autoplay muted loop playsinline controls>
+                <source src="assets/univtac/univtac_insert_hole.mp4" type="video/mp4" />
+              </video>
+            </figure>
+            <h3>Insert Hole</h3>
+          </article>
+
+          <article class="dex-item">
+            <figure class="media">
+              <video class="media-box" autoplay muted loop playsinline controls>
+                <source src="assets/univtac/univtac_insert_tube.mp4" type="video/mp4" />
+              </video>
+            </figure>
+            <h3>Insert Tube</h3>
+          </article>
+        </div>
+      </div>
+      
+
+      <div class="prose">
+        <h3>Real-Robot Contact-Rich Tasks</h3>
+        <p>
+          On real robots, FTP-1 improves over the strongest baseline by approximately <strong>+17.2%</strong>. 
+          The improvement is particularly visible in long-horizon and force-sensitive tasks, where tactile feedback helps the policy maintain stable contact and recover from small physical errors.
+        </p>
+      </div>
+
+      <div class="table-wrap">
+        <table class="results">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Draw Balloon</th>
+              <th>Fix Hand (Tear)</th>
+              <th>Fix Hand (Finish)</th>
+              <th>Twist Cap</th>
+              <th>Flip Book</th>
+              <th>Wipe Dish</th>
+              <th>Avg.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>&pi;<sub>0.5</sub></td><td class="snd">35</td><td class="snd">70</td><td class="snd">35</td><td class="snd">40</td><td>65</td><td>30</td><td class="snd">45.3</td></tr>
+            <tr><td>Tactile-VLA</td><td>20</td><td class="best">80</td><td>25</td><td>10</td><td>45</td><td>35</td><td>35.8</td></tr>
+            <tr><td>FTP-&pi;<sub>0.5</sub></td><td>25</td><td>65</td><td>25</td><td>20</td><td class="snd">70</td><td class="snd">45</td><td>41.6</td></tr>
+            <tr class="ours"><td>FTP-1 (Ours)</td><td class="best">45</td><td class="best">80</td><td class="best">40</td><td class="best">65</td><td class="best">85</td><td class="best">60</td><td class="best">62.5</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="prose">
+        <h3>Real-Robot Demonstrations</h3>
+
+        <p>
+          Selected rollouts show FTP-1 performing contact-rich manipulation across dexterous hands, humanoid platforms, and gripper-based systems. These tasks require fine-grained contact regulation, sustained force control, and reactive adjustment under physical uncertainty.
+        </p>
+      </div>
+
+      <div class="dex-grid real-demo-grid">
+
+        <article class="dex-item demo-wide">
+          <figure class="media">
+            <video class="media-box" autoplay muted loop playsinline controls>
+              <source src="assets/sharpa-balloon.mp4" type="video/mp4" />
+            </video>
+          </figure>
+          <h3>Draw Balloon</h3>
+          <p>
+            A long-horizon dexterous task that requires deformable-object interaction, fine-grained contact control, and stable tactile feedback throughout the drawing process.
+          </p>
+        </article>
+
+        <article class="dex-item">
+          <figure class="media">
+            <video class="media-box" autoplay muted loop playsinline controls>
+              <source src="assets/sharpa-bottle.mp4" type="video/mp4" />
+            </video>
+          </figure>
+          <h3>Twist Cap</h3>
+          <p>
+            A bimanual task requiring stable grip force, coordinated rotation, and tactile-regulated torque control across both hands.
+          </p>
+        </article>
+
+        <article class="dex-item">
+          <figure class="media">
+            <video class="media-box" autoplay muted loop playsinline controls>
+              <source src="assets/sharpa-hand.mp4" type="video/mp4" />
+            </video>
+          </figure>
+          <h3>Fix Hand</h3>
+          <p>
+            A dexterous task that requires tactile-aware contact maintenance and controlled force while repairing the hand model.
+          </p>
+        </article>
+
+        <article class="dex-item">
+          <figure class="media">
+            <video class="media-box" autoplay muted loop playsinline controls>
+              <source src="assets/ucb-book.mp4" type="video/mp4" />
+            </video>
+          </figure>
+          <h3>Flip Book</h3>
+          <p>
+            A page-flipping task that tests reactive contact under varying paper friction and tactile-aware fingertip force regulation.
+          </p>
+        </article>
+
+        <article class="dex-item">
+          <figure class="media">
+            <video class="media-box" autoplay muted loop playsinline controls>
+              <source src="assets/ucb-wipe.mp4" type="video/mp4" />
+            </video>
+          </figure>
+          <h3>Wipe Dish</h3>
+          <p>
+            A press-control task where FTP-1 maintains consistent force and tight contact with the surface, while vision-only baselines often lose contact.
+          </p>
+        </article>
+
+      </div>
+    </section>
+
+
+    <!-- ============== RESULTS: NEW TACTILE SENSORS ============== -->
+    <section class="section">
+      <div class="prose">
+        <h2>More Importantly, FTP-1 Transfers to New Tactile Sensors</h2>
+        <p>
+          The more important test is whether FTP-1 can adapt to tactile sensors that were never seen during pretraining. 
+          If this happens, it means that FTP-1 learn transferable tactile manipulation knowledge rather than simply memorizing the pretraining distribution.
+          We evaluate this by fine-tuning FTP-1 on new platforms equipped with unseen tactile hardware, including image-based (<a class="inline-link" href="https://www.xenserobotics.com/about/392" target="_blank" rel="noopener noreferrer">Xense</a>) and array-based (<a class="inline-link" href="https://contactile.com/products/#tactile_sensors" target="_blank" rel="noopener noreferrer">Contactile</a>) sensors.
+        </p>
+      </div>
+
+      <figure class="media media-wide">
+        <img src="assets/figures/hardware_unseen.png" alt="Hardware setups for new tactile sensor evaluation" />
+        <figcaption>
+          <strong>Transfer to new tactile sensors.</strong> FTP-1 adapts to FlexivXense and TactileUMI by learning only the sensor-specific encoder while reusing its pretrained tactile expert and morphology-aware token space and embeddings.
+        </figcaption>
+      </figure>
+
+      <div class="prose">
+        <p>
+          Even when the sensor-specific encoder is trained from scratch, FTP-1 can reuse its pretrained tactile expert and morphology-aware token space and embeddings. This leads to a <strong>+31.6%</strong> improvement over the strongest baseline on unseen-sensor tasks.
+          Beyond higher success rates, FTP-1 also exhibits contact-aware behaviors that are difficult to obtain from vision-only or weakly fused tactile baselines, such as slowing down when insertion misalignment is detected and maintaining stable contact force during wiping.
+          We provide more experiments and details in <a href="paper.pdf" class="inline-link" target="_blank" rel="noopener noreferrer">our technical report</a>.
+        </p>
+      </div>
+
+      <div class="table-wrap">
+        <table class="results">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Insert Hanoi</th>
+              <th>Insert USB</th>
+              <th>Wipe Board</th>
+              <th>Avg.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>&pi;<sub>0.5</sub></td><td class="snd">25</td><td>0</td><td>20</td><td>15.0</td></tr>
+            <tr><td>Tactile-VLA</td><td>0</td><td>10</td><td>15</td><td>8.3</td></tr>
+            <tr><td>FTP-&pi;<sub>0.5</sub></td><td>5</td><td>10</td><td class="snd">30</td><td>15.0</td></tr>
+            <tr class="ours"><td>FTP-1 (Ours)</td><td class="best">55</td><td class="best">30</td><td class="best">55</td><td class="best">46.6</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="dex-grid">
+
+        <article class="dex-item">
+          <figure class="media">
+            <video class="media-box" autoplay muted loop playsinline controls>
+              <source src="assets/sjtu-hanoi.mp4" type="video/mp4" />
+            </video>
+          </figure>
+          <h3>Insert Hanoi</h3>
+          <p>
+            FTP-1 slows down when tactile feedback indicates misalignment, showing reactive insertion control on a tactile sensor absent from pretraining.
+          </p>
+        </article>
+
+        <article class="dex-item">
+          <figure class="media">
+            <video class="media-box" autoplay muted loop playsinline controls>
+              <source src="assets/sjtu-usb.mp4" type="video/mp4" />
+            </video>
+          </figure>
+          <h3>Insert USB</h3>
+          <p>
+            A fine-grained insertion task where FTP-1 produces stable contact-aware motions, despite limited downstream demonstrations.
+          </p>
+        </article>
+
+        <article class="dex-item">
+          <figure class="media">
+            <!-- <div class="media-box" aria-label="Wipe Board task placeholder">
+              <span class="media-label">Wipe&nbsp;Board</span>
+              <span class="media-sub">TactileUMI &middot; Contactile</span>
+            </div> -->
+            <video class="media-box" autoplay muted loop playsinline controls>
+              <source src="assets/thu-wipe.mp4" type="video/mp4" />
+            </video>
+          </figure>
+          <h3>Wipe Board</h3>
+          <p>
+            A force-controlled wiping task where FTP-1 maintains stable pressure and continuous surface contact using an unseen array-based tactile sensor.
+          </p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ============== CONCLUSION ============== -->
+    <section class="section">
+      <div class="prose">
+        <h2>Toward Generalist Tactile Intelligence</h2>
+
+        <p>
+          FTP-1 takes a first step toward a generalist foundation tactile policy. By unifying heterogeneous tactile signals through a Morphology-Aware Tactile Token Space (MTTS) and a shared tactile expert, and by pretraining on approximately 3,000 hours of heterogeneous tactile manipulation data, FTP-1 provides a reusable starting point for contact-rich robot learning across sensors and embodiments.
+        </p>
+
+        <p>
+          Our results suggest that tactile pretraining can unlock transferable skills that are difficult to acquire from vision alone, including stable contact maintenance, force-aware manipulation, and reactive correction under physical uncertainty.
+          FTP-1 remains an early step, but it offers an initial glimpse of the potential for learning generalist tactile policies. We hope this work opens a new perspective on tactile learning and encourages further exploration of scalable, transferable tactile intelligence.
+          
+          <a href="paper.pdf" class="inline-link" target="_blank" rel="noopener noreferrer">Read the full technical report.</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============== BIBTEX ============== -->
+  <section class="cite" id="bibtex">
+    <div class="cite-inner">
+      <div class="cite-head">
+        <h3>Cite this work</h3>
+        <button class="copy-btn" id="copyBibtex" aria-label="Copy BibTeX to clipboard">Copy</button>
+      </div>
+      <!-- <pre class="bibtex" id="bibtexBlock">@inproceedings{yuan2026ftp1,
+  title     = {FTP-1: A Generalist Foundation Tactile Policy Across Tactile Sensors for Contact-Rich Manipulation},
+  author    = {Yuan, Chengbo and Zhang, Zicheng and Zhou, Mingjie and
+               Chen, Wendi and Wang, Yi and Liu, Zhuoyang and Niu, Dantong and
+               Wang, Shuo and Zhang, Hui and Zhang, Wenkang and Hu, Yingdong and
+               Gong, Yuanqing and Xing, Wanli and Wen, Chuan and Lu, Cewu and
+               Zhang, Kaifeng and Gao, Yang},
+  booktitle = {Conference on Robot Learning (CoRL)},
+  year      = {2026}
+}</pre> -->
+  <pre class="bibtex" id="bibtexBlock">TBD</pre>
+    </div>
+  </section>
+
+  <!-- ============== FOOTER ============== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#" class="brand">FTP-1</a>
+      </div>
+      <ul class="footer-links" data-shared-links-target="footer"></ul>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; FTP-1 Team</p>
+      <ul class="legal">
+        <li>Tsinghua University</li>
+        <li><a href="https://www.sharpa.com/" target="_blank" rel="noopener noreferrer">Sharpa</a></li>
+        <li>Shanghai Jiao Tong University</li>
+        <li>University of California, Berkeley</li>
+        <li>ETH Zurich</li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- ============== TOAST ============== -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
