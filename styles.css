@@ -860,6 +860,14 @@ button { font-family: inherit; cursor: pointer; }
 .author-list .author {
   display: inline-block;
 }
+.author-list .author a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+.author-list .author a:hover {
+  opacity: 0.7;
+}
 .author-list .author:not(:last-child)::after {
   content: "\00B7";
   margin-left: 8px;
